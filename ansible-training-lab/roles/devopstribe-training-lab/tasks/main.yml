@@ -1,0 +1,112 @@
+---
+- name: Install packages
+  ansible.builtin.package:
+    name:
+      - perl
+      - ansible
+      - gettext
+      - man-db
+      - procps
+      - psmisc
+      - nano
+      - tree
+      - bsdmainutils
+      - x11-apps
+      - wget
+    state: latest
+
+- name: Ensure group "students" exists
+  ansible.builtin.group:
+    name: students
+    state: present
+
+- name: Copy SSH Banner
+  ansible.builtin.copy:
+    src: banner
+    dest: /usr/local/etc/
+    owner: root
+    group: root
+    mode: 0775
+
+- name: Copy GameShell Banner
+  ansible.builtin.copy:
+    src: jenkins-banner-gameshell
+    dest: /usr/local/etc/jenkins-banner-gameshell
+    owner: root
+    group: root
+    mode: 0775
+
+- name: Copy sshd conf
+  ansible.builtin.copy:
+    src: sshd_config
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+  register: sshd_conf
+
+- name: Restart sshd
+  service:
+    name: sshd
+    state: restarted
+  when: sshd_conf.changed
+
+- name: Create firewall directory
+  ansible.builtin.file:
+    path: /etc/firewall
+    state: directory
+    owner: root
+    group: root
+    mode: 700
+
+- name: Copy firewall enable conf
+  ansible.builtin.copy:
+    src: firewall-enable.sh
+    dest: /etc/firewall/enable.sh
+    owner: root
+    group: root
+    mode: 0700
+  register: firewall_conf
+
+- name: Copy firewall disable conf
+  ansible.builtin.copy:
+    src: firewall-disable.sh
+    dest: /etc/firewall/disable.sh
+    owner: root
+    group: root
+    mode: 0700
+  register: firewall_conf
+
+- name: Copy Systemd Unit
+  ansible.builtin.copy:
+    src: firewall.service
+    dest: /etc/systemd/system/firewall.service
+    owner: root
+    group: root
+    mode: 0700
+  register: firewall_service_conf
+
+- name: Systemd Daemon Reload
+  ansible.builtin.systemd:
+    daemon_reload: true
+  when: firewall_service_conf.changed
+
+- name: Restart Firewall
+  service:
+    name: firewall
+    state: restarted
+  when: firewall_service_conf.changed or firewall_conf.changed
+
+- name: Create gameshell directory
+  ansible.builtin.file:
+    path: /usr/local/gameshell
+    state: directory
+    owner: root
+    group: root
+    mode: 775
+
+- name: Download foo.conf
+  ansible.builtin.get_url:
+    url: https://github.com/phyver/GameShell/releases/download/latest/gameshell.sh
+    dest: /usr/local/gameshell/gameshell.sh
+    mode: '0777'

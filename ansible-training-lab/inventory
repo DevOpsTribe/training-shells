@@ -1,0 +1,2 @@
+[training]
+training  ansible_become=true

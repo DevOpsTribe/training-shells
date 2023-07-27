@@ -105,8 +105,23 @@
     group: root
     mode: 775
 
-- name: Download foo.conf
+- name: Download GameShell
   ansible.builtin.get_url:
     url: https://github.com/phyver/GameShell/releases/download/latest/gameshell.sh
     dest: /usr/local/gameshell/gameshell.sh
     mode: '0777'
+
+- name: Create gameshell directory
+  ansible.builtin.file:
+    path: /usr/local/ansible-training-shells
+    state: directory
+    owner: root
+    group: root
+    mode: 775
+
+- name: Git checkout
+  ansible.builtin.git:
+    repo: 'https://github.com/lucky-sideburn/training-shells.git'
+    dest:  /usr/local/ansible-training-shells
+    version: main
+

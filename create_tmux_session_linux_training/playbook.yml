@@ -1,0 +1,74 @@
+---
+- name: Linux Basics Training
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Wait for the file to be created
+      pause:
+        prompt: "Please manually create the file foobar.txt with permissions 600 and press Enter when ready..."
+      register: manual_creation_result
+
+    - name: Check if the file exists
+      stat:
+        path: foobar.txt
+      register: file_stat_result
+      until: file_stat_result.stat.exists
+      retries: 30
+      delay: 10
+
+    - name: Check file permissions
+      assert:
+        that:
+          - file_stat_result.stat.mode == '0600'
+        msg: "File foobar.txt doesn't have the correct permissions (600)!"
+
+    - name: Display success message
+      debug:
+        msg: "ok! Task passed!"
+
+    - name: Wait for the file to be created
+      pause:
+        prompt: "Please manually create the file foobar.txt with permissions 755 and press Enter when ready..."
+      register: manual_creation_result
+
+    - name: Check if the file exists
+      stat:
+        path: foobar.txt
+      register: file_stat_result
+      until: file_stat_result.stat.exists
+      retries: 30
+      delay: 10
+
+    - name: Check file permissions
+      assert:
+        that:
+          - file_stat_result.stat.mode == '0755'
+        msg: "File foobar.txt doesn't have the correct permissions (755)!"
+
+    - name: Display success message
+      debug:
+        msg: "ok! Task passed!"
+
+    - name: Wait for the symbolic link to be created
+      pause:
+        prompt: "Please manually create a symbolic link to foobar.txt named foobar_link and press Enter when ready..."
+      register: manual_creation_result
+
+    - name: Check if the symbolic link exists
+      stat:
+        path: foobar_link
+      register: symlink_stat_result
+      until: symlink_stat_result.stat.exists
+      retries: 30
+      delay: 10
+
+    - name: Check if the path points to foobar.txt
+      assert:
+        that:
+          - symlink_stat_result.stat.lnk_source == 'foobar.txt'
+        msg: "The symbolic link is not correctly created!"
+
+    - name: Display success message
+      debug:
+        msg: "ok! Task passed!"

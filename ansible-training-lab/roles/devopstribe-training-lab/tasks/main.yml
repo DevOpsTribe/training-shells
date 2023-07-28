@@ -13,6 +13,7 @@
       - bsdmainutils
       - x11-apps
       - wget
+      - golang
     state: latest
 
 - name: Ensure group "students" exists
@@ -119,9 +120,29 @@
     group: root
     mode: 775
 
-- name: Git checkout
+- name: Git checkout training shells
   ansible.builtin.git:
     repo: 'https://github.com/lucky-sideburn/training-shells.git'
     dest:  /usr/local/ansible-training-shells
     version: main
+    force: yes
 
+- name: Git checkout Congruit
+  ansible.builtin.git:
+    repo: 'https://github.com/Congruit/congruit.git'
+    dest:  /usr/local/congruit
+    version: master
+    force: yes
+
+- name: Check if Congruit binary exists
+  stat: 
+    path: /usr/local/bin/congruit
+  register: congruit_binary
+
+- name: Build Congruit
+  ansible.builtin.shell: |
+      cd /usr/local/congruit
+      go build congruit.go 
+      /bin/cp congruit /usr/local/bin/congruit 
+      chmod 775  /usr/local/bin/congruit
+  when: congruit_binary.stat.exists == False

@@ -1,10 +1,14 @@
 [
   {
-     "places": ["file_775_exists"],
-     "works": ["task_completed"]
+      "places": ["file_775_exists"],
+      "works": ["task_completed"]
   },
   {
-    "places": ["training_session_end"],
-    "works": ["training_session_end"]
+      "places": ["file_600_exists"],
+      "works": ["task_completed"]
+  },
+  {
+      "places": ["training_session_end"],
+      "works": ["training_session_end"]
    }
 ]

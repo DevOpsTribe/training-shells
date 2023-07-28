@@ -1,1 +1,2 @@
 echo 'Ok! Task completed.'
+echo "[DevOpsTRibe Msg] Ok! Task completed." | write $USER

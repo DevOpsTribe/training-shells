@@ -1,6 +1,6 @@
+echo "[DevOpsTRibe Msg] Create the file foobar.txt with permission 775" | write $USER
 while true; do 
-    echo "Check if foobar.txt exists and has permission 775"
-    ls -l foo | awk '{ print $1 }' | grep 'rwxrwxr-x' ;
+    ls -l foobar.txt | awk '{ print $1 }' | grep 'rwxrwxr-x' ;
     if [ $? -eq 0 ];
     then
         exit 0

@@ -122,7 +122,7 @@
 
 - name: Git checkout training shells
   ansible.builtin.git:
-    repo: 'https://github.com/lucky-sideburn/training-shells.git'
+    repo: 'https://github.com/DevOpsTribe/training-shells.git'
     dest:  /usr/local/ansible-training-shells
     version: main
     force: yes

@@ -3,7 +3,7 @@ while true; do
     ls -l foobar.txt | awk '{ print $1 }' | grep 'rwxrwxr-x' ;
     if [ $? -eq 0 ];
     then
-        exit 0
+        break
     fi
     sleep 1; 
 done

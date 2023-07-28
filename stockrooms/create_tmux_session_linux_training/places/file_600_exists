@@ -1,0 +1,9 @@
+echo "[DevOpsTRibe Msg] Create the file foobar.txt with permission 600" >> $HOME/congruit.log
+while true; do 
+    ls -l foobar.txt | awk '{ print $1 }' | grep 'rw------x' ;
+    if [ $? -eq 0 ];
+    then
+        break
+    fi
+    sleep 1; 
+done

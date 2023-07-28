@@ -1,0 +1,9 @@
+# Message to print
+echo "[DevOpsTribe Msg] Create a symbolic link to the file foobar.txt"  >> $HOME/congruit.log
+
+while true; do
+    if [ -L "my_link.txt" ] && [ "$(readlink -f my_link.txt)" = "$HOME/foobar.txt" ]; then
+        break
+    fi
+    sleep 1
+done

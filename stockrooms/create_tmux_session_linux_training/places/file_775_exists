@@ -1,4 +1,4 @@
-echo "[DevOpsTRibe Msg] Create the file foobar.txt with permission 775" | write $USER
+echo "[DevOpsTRibe Msg] Create the file foobar.txt with permission 775" >> $HOME/congruit.log
 while true; do 
     ls -l foobar.txt | awk '{ print $1 }' | grep 'rwxrwxr-x' ;
     if [ $? -eq 0 ];

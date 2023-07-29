@@ -1,12 +1,14 @@
 echo "[DevOpsTribe Msg] Lanunch sleep 9999 in background"  >> $HOME/congruit.log
-[ "$CONGRUIT_TEST" = "true" ] && (sleep 9999 &)
+if [ "$CONGRUIT_TEST" = "true" ];then
+    sleep 9999
+fi
 
 while true; do
     jobs | grep "sleep 9999"
     ret=$?
     
     if [ $ret -eq 0 ]; then
-        kill %n
+        kill %1
         break
     fi
 

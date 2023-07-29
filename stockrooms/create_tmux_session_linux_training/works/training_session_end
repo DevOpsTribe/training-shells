@@ -1,0 +1,1 @@
+echo 'Convergence has been completed.' >> $HOME/congruit.log

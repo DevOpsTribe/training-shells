@@ -1,5 +1,6 @@
 echo "[DevOpsTRibe Msg] Training Session Completed!" >> $HOME/congruit.log
 echo "[DevOpsTRibe Msg] Please close WebSSH session from your browser" >> $HOME/congruit.log
+[ "$CONGRUIT_TEST" = "true" ] && exit
 while true; do 
     sleep 1; 
 done

@@ -1,9 +1,10 @@
-echo "[DevOpsTRibe Msg] Create the file foobar.txt with permission 775" >> $HOME/congruit.log
+echo "[DevOpsTRibe Msg] Create the file foobar775.txt with permission 775" >> $HOME/congruit.log
 while true; do 
-    ls -l foobar.txt | awk '{ print $1 }' | grep 'rwxrwxr-x' ;
+    ls -l foobar775.txt | awk '{ print $1 }' | grep 'rwxrwxr-x' ;
     if [ $? -eq 0 ];
     then
         break
     fi
-    sleep 1; 
+    sleep 1;
+    [ "$CONGRUIT_TEST" = "true" ] && (touch foobar775.txt && chmod 775 foobar775.txt)
 done

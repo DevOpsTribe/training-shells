@@ -1,9 +1,10 @@
-echo "[DevOpsTRibe Msg] Create the file foobar.txt with permission 600" >> $HOME/congruit.log
+echo "[DevOpsTRibe Msg] Create the file foobar600.txt with permission 600" >> $HOME/congruit.log
 while true; do 
-    ls -l foobar.txt | awk '{ print $1 }' | grep 'rw------x' ;
+    ls -l foobar600.txt | awk '{ print $1 }' | grep 'rw------x' ;
     if [ $? -eq 0 ];
     then
         break
     fi
     sleep 1; 
+    [ "$CONGRUIT_TEST" = "true" ] && (touch foobar600.txt && chmod 600 foobar600.txt)
 done

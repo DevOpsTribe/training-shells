@@ -1,0 +1,1 @@
+echo '[DevOpsTRibe Msg] Ok! Task completed.' >> $HOME/congruit.log

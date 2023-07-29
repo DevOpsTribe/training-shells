@@ -12,6 +12,10 @@
     "works": ["task_completed"]
   },
   {
+    "places": ["background_command"],
+    "works": ["task_completed"]
+  },
+  {
     "places": ["training_session_end"],
     "works": ["training_session_end"]
   }

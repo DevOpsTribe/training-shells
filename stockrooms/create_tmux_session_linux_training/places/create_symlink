@@ -6,5 +6,5 @@ while true; do
         break
     fi
     sleep 1
-    [ "$CONGRUIT_TEST" = "true" ] && (ln -s my_link.txt foobar775.txt)
+    [ "$CONGRUIT_TEST" = "true" ] && (ln -s foobar775.txt my_link.txt)
 done

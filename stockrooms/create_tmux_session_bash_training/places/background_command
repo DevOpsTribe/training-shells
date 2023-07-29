@@ -1,6 +1,6 @@
 echo "[DevOpsTribe Msg] Lanunch sleep 9999 in background"  >> $HOME/congruit.log
 if [ "$CONGRUIT_TEST" = "true" ];then
-    sleep 9999
+    sleep 9999 &
 fi
 
 while true; do
